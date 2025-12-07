@@ -1,134 +1,114 @@
 {
   "confluences": [
     {
-      "id": "eko",
-      "name": "Eko Confluence",
+      "id": "niger-delta",
+      "name": "Niger Delta",
       "location": "Nigeria",
-      "coordinates": [6.45, 3.40],
+      "coordinates": [5.45, 6.35],
       "timeframe": "Pre-colonial to present",
-      "region": "West Africa",
-      "lineages": ["Edo", "Bini", "Tiv"],
-      "dances": ["Bata", "Ekombi", "Ugho", "Swange", "Esapkaide"],
-      "narrative": "The Eko Confluence centers on the southern and central regions of present-day Nigeria, encompassing the historical territories of the Edo (Benin Kingdom), Bini, and Tiv peoples. The confluence extends from the Niger Delta through the Benue River valley, capturing movement traditions that reflect both forest and savanna cultural zones.",
-      "performer": "Sinclair",
-      "danceCount": 8,
+      "lineages": ["Yoruba", "Igbo", "Ijaw"],
+      "dances": ["Bata", "Atilogwu", "Ekombi"],
+      "narrative": "The Niger Delta region represents one of the most significant source zones for African diasporic dance traditions. Here, ritual dances accompanying Yoruba Orisha worship, Igbo ceremonial movements, and Ijaw masquerade traditions developed in proximity, creating a complex web of influence and exchange. When the transatlantic slave trade forcibly dispersed millions of people from this region, they carried these movement vocabularies with them—to Brazil, Cuba, Haiti, and beyond. Today, we can trace echoes of Niger Delta dance in Candomblé terreiros in Salvador, in Santería ceremonies in Havana, and in Vodou rituals in Port-au-Prince.",
       "links": [
-        {"label": "View Bata", "url": "viz/sinclair_bata_cyberspace.html"},
-        {"label": "View Ekombi", "url": "viz/sinclair_ekombi_cyberspace.html"},
-        {"label": "View Ugho", "url": "viz/sinclair_ugho_cyberspace.html"},
-        {"label": "View Swange", "url": "viz/sinclair_swange_cyberspace.html"}
+        {
+          "label": "View Bata visualization",
+          "url": "viz/bata-sinclair.html"
+        }
       ],
       "status": "active"
     },
     {
-      "id": "ashanti",
-      "name": "Ashanti Confluence",
-      "location": "Ghana",
-      "coordinates": [5.56, -0.19],
-      "timeframe": "Pre-colonial to present",
-      "region": "West Africa",
-      "lineages": ["Ewe", "Ga"],
-      "dances": ["Atsiagbekor", "Agbadza", "Kpanlongo", "Adzogbo", "Djole", "Fumefume"],
-      "narrative": "The Ashanti Confluence covers a multi-country region centered on present-day Ghana but extending into Togo, Cote d'Ivoire, Burkina Faso, and Niger. The current research focuses specifically on dances from the Ewe and Ga peoples of southeastern Ghana.",
-      "performer": "Mustapha",
-      "danceCount": 7,
+      "id": "casamance",
+      "name": "Casamance",
+      "location": "Senegal",
+      "coordinates": [12.55, -15.65],
+      "timeframe": "2000–2025 (initial lab focus)",
+      "lineages": ["Jola", "Mandinka", "Balanta"],
+      "dances": ["Esapkaide", "Kumpo", "Kankurang"],
+      "narrative": "The Casamance region of southern Senegal, separated from the rest of the country by The Gambia, developed distinct dance traditions influenced by its relative isolation and the persistence of indigenous religious practices. The Jola people's initiation dances, particularly those associated with masked figures like Kumpo, represent some of the most resilient movement traditions in West Africa. GMR's lab work in Casamance focuses on documenting these dances and understanding how they connect to broader Senegambian and Atlantic world traditions.",
       "links": [
-        {"label": "View Atsiagbekor", "url": "viz/mustapha_atsiagbekor_cyberspace.html"},
-        {"label": "View Agbadza", "url": "viz/mustapha_agbadza_cyberspace.html"},
-        {"label": "View Kpanlongo", "url": "viz/mustapha_kpanlongo_cyberspace.html"}
+        {
+          "label": "View Esapkaide visualization",
+          "url": "viz/esapkaide-sinclair.html"
+        },
+        {
+          "label": "Compare Esapkaide & Bata",
+          "url": "compare.html?left=esapkaide&right=bata"
+        }
       ],
       "status": "active"
+    },
+    {
+      "id": "salvador-bahia",
+      "name": "Salvador da Bahia",
+      "location": "Brazil",
+      "coordinates": [-12.97, -38.50],
+      "timeframe": "16th century to present",
+      "lineages": ["Yoruba-derived", "Bantu-derived", "Syncretic Brazilian"],
+      "dances": ["Candomblé orixá dances", "Capoeira", "Samba de roda"],
+      "narrative": "Salvador da Bahia received more enslaved Africans than any other city in the Americas. The result was a remarkable preservation and transformation of West African movement traditions, particularly those associated with Yoruba Orisha worship. In the Candomblé houses of Bahia, dances for Xangô, Oxum, and Ogum maintain clear kinesthetic connections to their Nigerian origins—yet they have also evolved in dialogue with Indigenous Brazilian and European influences. Salvador is a critical site for understanding how diasporic dance maintains fidelity while adapting to new contexts.",
+      "links": [],
+      "status": "planned"
     },
     {
       "id": "havana",
-      "name": "Havana Confluence",
+      "name": "Havana",
       "location": "Cuba",
       "coordinates": [23.12, -82.38],
       "timeframe": "16th century to present",
-      "region": "Caribbean",
-      "lineages": ["Yoruba-derived"],
-      "dances": ["Chango", "Yemaya", "Kuele Kuele"],
-      "narrative": "The Havana Confluence represents a major diasporic node where West African movement traditions, particularly those of the Yoruba, were carried across the Atlantic and transformed in the context of colonial Cuba. The Orisha religious tradition preserved and adapted dances associated with specific deities.",
-      "performer": "Nadia",
-      "danceCount": 3,
-      "links": [
-        {"label": "View Chango", "url": "viz/nadia_chango__cyberspace.html"},
-        {"label": "View Yemaya", "url": "viz/nadia_yemaya__cyberspace.html"},
-        {"label": "View Kuele Kuele", "url": "viz/nadia_kuele_kuele_cyberspace.html"}
-      ],
-      "status": "active"
+      "lineages": ["Yoruba-derived", "Kongo-derived", "Carabalí"],
+      "dances": ["Santería orixá dances", "Rumba", "Palo"],
+      "narrative": "Cuba's proximity to the United States made it a crucial node in the global circulation of African-derived dance. Havana's Santería traditions preserve elaborate choreographies for the Orishas, while secular forms like rumba developed in the city's solares and dockyards. The Cuban revolution created both challenges and opportunities for documentation—many practitioners left for Miami and New York, spreading these traditions further while the island's archives remained relatively closed. GMR is working to connect Cuban collections with their West African sources.",
+      "links": [],
+      "status": "planned"
     },
     {
-      "id": "kandy",
-      "name": "Kandy Confluence",
-      "location": "Sri Lanka",
-      "coordinates": [7.29, 80.64],
-      "timeframe": "Pre-colonial to present",
-      "region": "South Asia",
-      "lineages": ["Kandyan", "Low Country"],
-      "dances": ["Kohomba Kankariya", "Gajaga Vannama", "Telme Ruhunu", "Baila Kappirinna"],
-      "narrative": "The Kandy Confluence centers on the central highlands of Sri Lanka, where the Kandyan Kingdom maintained its independence until the early 19th century and developed a distinctive court dance tradition. The confluence extends throughout the central and southern regions where related folk and ritual dance forms persist.",
-      "performer": "Sudesh",
-      "danceCount": 6,
-      "links": [
-        {"label": "View Kohomba Kankariya", "url": "viz/sudesh_kohomba_kankariya_cyberspace.html"},
-        {"label": "View Gajaga Vannama", "url": "viz/sudesh_gajaga_vannama_slow_cyberspace.html"},
-        {"label": "View Telme Ruhunu", "url": "viz/sudesh_telme_ruhunu_cyberspace.html"}
-      ],
-      "status": "active"
+      "id": "port-au-prince",
+      "name": "Port-au-Prince",
+      "location": "Haiti",
+      "coordinates": [18.54, -72.34],
+      "timeframe": "17th century to present",
+      "lineages": ["Fon-derived", "Kongo-derived", "Taíno-influenced"],
+      "dances": ["Vodou ceremonial dances", "Rara", "Yanvalou"],
+      "narrative": "Haiti's revolutionary history—the only successful slave revolt to create an independent nation—also preserved one of the richest repositories of African-derived movement in the Americas. Vodou ceremonies maintain dances for the lwa (spirits) that show clear connections to Fon and Ewe traditions from present-day Benin and Togo. The yanvalou, a signature Vodou movement pattern, provides a fascinating case study in how a specific kinesthetic vocabulary can persist across centuries of separation.",
+      "links": [],
+      "status": "planned"
     },
     {
-      "id": "ireland",
-      "name": "Irish Confluence",
-      "location": "Ireland",
-      "coordinates": [53.35, -6.26],
+      "id": "new-orleans",
+      "name": "New Orleans",
+      "location": "Louisiana, USA",
+      "coordinates": [29.95, -90.07],
       "timeframe": "18th century to present",
-      "region": "Europe",
-      "lineages": ["Irish"],
-      "dances": ["Slip Jig", "Sean-nos Jigs", "Festival Blackbird", "Garden of Daisies"],
-      "narrative": "The Irish Confluence encompasses the island of Ireland, with particular attention to regional variations in step dance that developed across different counties and communities. Irish step dance represents a vernacular tradition that has been both preserved through competitive structures and transformed through globalization.",
-      "performer": "Kate",
-      "danceCount": 5,
-      "links": [
-        {"label": "View Slip Jig", "url": "viz/kate_slip_jig_cyberspace.html"},
-        {"label": "View Sean-nos Jigs", "url": "viz/kate_sean-no_s_jigs_cyberspace.html"},
-        {"label": "View Festival Blackbird", "url": "viz/kate_festival_blackbird_cyberspace.html"}
-      ],
-      "status": "active"
+      "lineages": ["West African-derived", "Caribbean-mediated", "French-influenced"],
+      "dances": ["Second Line", "Congo Square traditions", "Jazz funeral"],
+      "narrative": "New Orleans occupies a unique position in the African diasporic dance network. Congo Square provided a rare legal space for enslaved Africans to gather and dance, creating a documented record of movement practices that were suppressed elsewhere in North America. The city's ongoing second line tradition, brass band funerals, and Mardi Gras Indian practices represent living continuations of African-derived movement, transformed through centuries of creolization.",
+      "links": [],
+      "status": "future"
     },
     {
-      "id": "recife",
-      "name": "Recife Confluence",
-      "location": "Brazil",
-      "coordinates": [-8.05, -34.88],
-      "timeframe": "19th century to present",
-      "region": "Americas",
-      "lineages": ["African", "Indigenous", "European"],
-      "dances": ["Frevo"],
-      "narrative": "The Recife Confluence centers on the northeastern Brazilian state of Pernambuco, particularly the cities of Recife and Olinda, where Carnival traditions have developed distinctive dance forms. This region represents another node in the Atlantic diasporic network.",
-      "performer": "Kate",
-      "danceCount": 1,
-      "links": [
-        {"label": "View Frevo", "url": "viz/kate_frevo_cyberspace.html"}
-      ],
-      "status": "active"
+      "id": "kingston",
+      "name": "Kingston",
+      "location": "Jamaica",
+      "coordinates": [17.97, -76.79],
+      "timeframe": "17th century to present",
+      "lineages": ["Akan-derived", "Kongo-derived", "Syncretic Jamaican"],
+      "dances": ["Kumina", "Jonkonnu", "Dancehall"],
+      "narrative": "Jamaica's dance traditions span from the sacred movements of Kumina—preserving Kongo cosmological ideas—to the global phenomenon of dancehall. Kingston serves as both an archive of retention and an engine of innovation. GMR is particularly interested in tracing connections between Jamaican dance and its West African sources, as well as understanding how contemporary Jamaican movement vocabulary circulates globally through digital media.",
+      "links": [],
+      "status": "future"
     },
     {
-      "id": "san-juan",
-      "name": "San Juan Confluence",
-      "location": "Puerto Rico",
-      "coordinates": [18.47, -66.10],
-      "timeframe": "20th century to present",
-      "region": "Caribbean",
-      "lineages": ["African", "European", "Indigenous"],
-      "dances": ["Salsa"],
-      "narrative": "The San Juan Confluence represents Puerto Rico's position as a node in Caribbean and Latin American social dance networks. The island's location and history have made it a site where African, European, and indigenous influences combined to produce distinctive dance forms.",
-      "performer": "Annie Laura",
-      "danceCount": 1,
-      "links": [
-        {"label": "View Salsa", "url": "viz/annie_laura_salsa_cyberspace.html"}
-      ],
-      "status": "active"
+      "id": "accra",
+      "name": "Accra",
+      "location": "Ghana",
+      "coordinates": [5.56, -0.19],
+      "timeframe": "Pre-colonial to present",
+      "lineages": ["Ga", "Akan", "Ewe"],
+      "dances": ["Adowa", "Kpanlogo", "Agbadza"],
+      "narrative": "Ghana's position as a major departure point for the transatlantic slave trade makes it essential to any study of diasporic dance. Accra and its surroundings host diverse traditions—the Ga people's kpanlogo developed in the 1960s as a conscious blend of traditional and popular influences, while older forms like adowa maintain ceremonial significance. Ghana has also become a destination for diaspora 'returnees,' creating feedback loops as African Americans and Afro-Caribbeans bring back transformed versions of movements that originated here.",
+      "links": [],
+      "status": "future"
     }
   ],
   "regions": [
@@ -136,31 +116,25 @@
       "id": "west-africa",
       "name": "West Africa",
       "bounds": [[-5, -20], [20, 15]],
-      "description": "Source region with active motion capture research"
+      "description": "Source region for most African diasporic dance traditions in the Americas"
     },
     {
       "id": "caribbean",
       "name": "Caribbean",
       "bounds": [[10, -90], [27, -60]],
-      "description": "Diasporic dance traditions with Orisha and social dance focus"
+      "description": "Critical zone of retention, transformation, and re-circulation"
     },
     {
-      "id": "south-asia",
-      "name": "South Asia",
-      "bounds": [[0, 70], [15, 90]],
-      "description": "Classical and folk traditions from Sri Lanka"
-    },
-    {
-      "id": "europe",
-      "name": "Europe",
-      "bounds": [[50, -12], [56, -5]],
-      "description": "Vernacular step dance traditions"
-    },
-    {
-      "id": "americas",
-      "name": "Americas",
+      "id": "brazil",
+      "name": "Brazil",
       "bounds": [[-35, -75], [5, -35]],
-      "description": "Brazilian carnival traditions"
+      "description": "Largest African diaspora population; major site of preservation"
+    },
+    {
+      "id": "north-america",
+      "name": "North America",
+      "bounds": [[25, -130], [50, -65]],
+      "description": "Complex history of suppression, survival, and innovation"
     }
   ]
 }
