@@ -1,328 +1,730 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confluences — Global Movement Research</title>
-  <meta name="description" content="Explore the global map of dance confluences—places where movement traditions converge, diverge, and transform.">
-  
-  <!-- Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
-  
-  <!-- Styles -->
-  <link rel="stylesheet" href="css/style.css">
-  
-  <style>
-    /* Page-specific adjustments */
-    .leaflet-control-attribution {
-      font-family: var(--font-mono);
-      font-size: 10px;
-      background: rgba(250, 249, 247, 0.9) !important;
-    }
-    
-    .leaflet-control-zoom a {
-      font-family: var(--font-body);
-      color: var(--color-ink) !important;
-      border-color: var(--color-paper-dark) !important;
-    }
-    
-    .leaflet-popup-content-wrapper {
-      border-radius: 0;
-      font-family: var(--font-body);
-    }
-    
-    .leaflet-popup-content {
-      margin: 12px 16px;
-      font-size: var(--text-sm);
-    }
-    
-    .leaflet-popup-content h4 {
-      font-family: var(--font-display);
-      margin: 0 0 4px 0;
-      font-size: var(--text-base);
-    }
-    
-    .leaflet-popup-content p {
-      margin: 0;
-      color: var(--color-ink-faded);
-      font-size: var(--text-xs);
-    }
-    
-    .map-legend {
-      position: absolute;
-      bottom: 30px;
-      left: 20px;
-      background: var(--color-panel-bg);
-      padding: var(--space-md);
-      z-index: 1000;
-      font-size: var(--text-xs);
-      border: 1px solid var(--color-paper-dark);
-    }
-    
-    .legend-item {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-      margin-bottom: var(--space-xs);
-    }
-    
-    .legend-item:last-child {
-      margin-bottom: 0;
-    }
-    
-    .legend-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      border: 2px solid var(--color-paper);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-    }
-    
-    .legend-dot.active { background: var(--color-confluence); }
-    .legend-dot.planned { background: var(--color-ocean); }
-    .legend-dot.future { background: var(--color-ink-faded); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atomic Confluences | Global Movement Research</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Hero */
+        .map-hero {
+            padding: 4rem 0 3rem;
+            background: linear-gradient(135deg, #f8f5f0 0%, #ebe6dd 100%);
+            text-align: center;
+        }
+        
+        .map-hero h1 {
+            font-family: var(--font-display);
+            font-size: 2.75rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .map-hero-intro {
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+        
+        /* Global Map Section */
+        .global-map-section {
+            padding: 3rem 0;
+            background: #1a1a2e;
+        }
+        
+        .global-map-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .global-map-container img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        
+        .global-map-caption {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            font-size: 0.875rem;
+            margin-top: 1rem;
+        }
+        
+        /* Confluence Framework */
+        .framework-section {
+            padding: 4rem 0;
+            background: var(--surface);
+        }
+        
+        .framework-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .framework-text h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        .framework-text p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+        
+        .framework-image img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .framework-image figcaption {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            margin-top: 0.75rem;
+        }
+        
+        /* StoryMap Embed */
+        .storymap-section {
+            padding: 3rem 0;
+            background: white;
+        }
+        
+        .storymap-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .storymap-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .storymap-header p {
+            color: var(--text-secondary);
+        }
+        
+        .storymap-embed {
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+        
+        .storymap-link {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .storymap-link a {
+            color: var(--earth);
+            font-size: 0.9rem;
+        }
+        
+        /* Confluences */
+        .confluences-section {
+            padding: 4rem 0;
+        }
+        
+        .confluences-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .confluences-header h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--text-primary);
+            margin-bottom: 0.75rem;
+        }
+        
+        .confluences-header p {
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Region Dividers */
+        .region-divider {
+            padding: 2rem 0;
+            background: var(--surface);
+            border-top: 3px solid var(--earth);
+            margin-top: 3rem;
+        }
+        
+        .region-divider h3 {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--earth);
+            margin-bottom: 0.5rem;
+        }
+        
+        .region-divider p {
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+        
+        /* Confluence Card */
+        .confluence-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 3rem;
+            overflow: hidden;
+        }
+        
+        .confluence-header {
+            background: linear-gradient(135deg, var(--earth) 0%, #6b4423 100%);
+            padding: 2rem;
+            color: white;
+        }
+        
+        .confluence-header.ashanti {
+            background: linear-gradient(135deg, #2d5a3d 0%, #1e3d29 100%);
+        }
+        
+        .confluence-header.caribbean {
+            background: linear-gradient(135deg, var(--ocean) 0%, #1a5276 100%);
+        }
+        
+        .confluence-header.southasia {
+            background: linear-gradient(135deg, #8b4513 0%, #5d2e0c 100%);
+        }
+        
+        .confluence-header.europe {
+            background: linear-gradient(135deg, #228b22 0%, #145214 100%);
+        }
+        
+        .confluence-header.americas {
+            background: linear-gradient(135deg, var(--terracotta) 0%, #8b3a3a 100%);
+        }
+        
+        .confluence-id {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+            margin-bottom: 0.25rem;
+        }
+        
+        .confluence-header h3 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .confluence-region {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .confluence-body {
+            padding: 2rem;
+        }
+        
+        .confluence-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .confluence-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .confluence-section h4 {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            padding-bottom: 0.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .confluence-section p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+        
+        /* Dance Links Grid */
+        .dance-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+        
+        .dance-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: var(--surface);
+            border-radius: 6px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            border: 1px solid var(--border);
+        }
+        
+        .dance-link:hover {
+            background: var(--earth);
+            color: white;
+            border-color: var(--earth);
+        }
+        
+        .dance-link::before {
+            content: '▸';
+            color: var(--earth);
+            font-size: 0.75rem;
+        }
+        
+        .dance-link:hover::before {
+            color: white;
+        }
+        
+        /* Data Badge */
+        .data-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(139, 94, 60, 0.1);
+            color: var(--earth);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            margin-top: 0.5rem;
+        }
+        
+        .data-badge.mocap {
+            background: rgba(45, 90, 61, 0.1);
+            color: #2d5a3d;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .map-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .framework-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .framework-image {
+                order: -1;
+            }
+            
+            .storymap-embed {
+                height: 450px;
+            }
+            
+            .dance-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="site-nav" id="nav">
-    <div class="nav-inner">
-      <a href="index.html" class="nav-logo">GMR <span>Global Movement Research</span></a>
-      <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="maps.html" class="active">Confluences</a></li>
-        <li><a href="dances.html">Dances</a></li>
-        <li><a href="compare.html">Compare</a></li>
-        <li><a href="methods.html">Methods</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <!-- Map Layout -->
-  <div class="map-layout">
-    <!-- Map Container -->
-    <div class="map-container">
-      <div id="map"></div>
-      <div class="map-legend">
-        <div class="legend-item">
-          <span class="legend-dot active"></span>
-          <span>Active research</span>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">GMR</a>
+            <ul class="nav-links">
+                <li><a href="maps.html" class="active">Map</a></li>
+                <li><a href="dances.html">Dances</a></li>
+                <li><a href="compare.html">Compare</a></li>
+                <li><a href="methods.html">Methods</a></li>
+            </ul>
         </div>
-        <div class="legend-item">
-          <span class="legend-dot planned"></span>
-          <span>Planned</span>
+    </nav>
+
+    <!-- Hero -->
+    <section class="map-hero">
+        <div class="container">
+            <h1>Atomic Confluences</h1>
+            <p class="map-hero-intro">Global Movement Research uses Atomic Confluences to describe regions where dance, migration, trade, and cultural memory cluster into dense movement ecologies. Each confluence is treated as a regional node made up of multiple city-states, river systems, and border zones, rather than a single city alone.</p>
         </div>
-        <div class="legend-item">
-          <span class="legend-dot future"></span>
-          <span>Future</span>
+    </section>
+
+    <!-- Global Map -->
+    <section class="global-map-section">
+        <div class="container">
+            <div class="global-map-container">
+                <img src="img/global-map.png" alt="Global Movement Research visualization showing dance diffusion patterns across continents">
+                <p class="global-map-caption">Visualization of global dance diffusion patterns and research sites</p>
+            </div>
         </div>
-      </div>
-    </div>
+    </section>
 
-    <!-- Narrative Panel -->
-    <aside class="narrative-panel" id="panel">
-      <div class="panel-intro" id="panelIntro">
-        <h2>Atomic Confluences</h2>
-        <p>Select a location on the map to learn about the dance traditions that converge there.</p>
-        <p style="margin-top: var(--space-lg); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em;">
-          Click any marker to begin
-        </p>
-      </div>
-      <div class="panel-content" id="panelContent" style="display: none;">
-        <!-- Populated dynamically -->
-      </div>
-    </aside>
-  </div>
+    <!-- Framework Section -->
+    <section class="framework-section">
+        <div class="container">
+            <div class="framework-grid">
+                <div class="framework-text">
+                    <h2>The Atomic Confluences Framework</h2>
+                    <p>Confluences are identified using a set of interconnected criteria: geographical proximity, coordinates, language, religious affiliations, shared cultural histories, agricultural and natural resources, population, city-state structures, musical rhythms, dance styles, climate, resettlement information, geopolitical relations, and classification precision.</p>
+                    <p>These attributes work together to define regions where movement traditions have historically clustered, traveled, and transformed. The framework allows researchers to trace how dances move across boundaries while respecting the complexity of cultural exchange.</p>
+                </div>
+                <figure class="framework-image">
+                    <img src="img/confluence-network.png" alt="Network visualization showing West African confluences and their attribute connections">
+                    <figcaption>Network graph: West African confluences (yellow) and their shared attributes</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
 
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-  
-  <script>
-    // Mobile nav toggle
-    function toggleNav() {
-      document.getElementById('navLinks').classList.toggle('open');
-    }
+    <!-- West African StoryMap -->
+    <section class="storymap-section">
+        <div class="container">
+            <div class="storymap-header">
+                <h2>West African Dance Confluences</h2>
+                <p>Explore the six West African confluences in the interactive StoryMap</p>
+            </div>
+            <iframe 
+                class="storymap-embed"
+                src="https://uploads.knightlab.com/storymapjs/efc8fc30a8e3efb3ba934957c130e7b8/dance-atomic-confluences/index.html"
+                allowfullscreen>
+            </iframe>
+            <p class="storymap-link">
+                <a href="https://uploads.knightlab.com/storymapjs/efc8fc30a8e3efb3ba934957c130e7b8/dance-atomic-confluences/index.html" target="_blank">Open StoryMap in new window ↗</a>
+            </p>
+        </div>
+    </section>
 
-    // Initialize map
-    const map = L.map('map', {
-      center: [10, -15],
-      zoom: 3,
-      minZoom: 2,
-      maxZoom: 10,
-      zoomControl: true,
-      attributionControl: true
-    });
+    <main>
+        <!-- Confluences with Motion Capture Data -->
+        <section class="confluences-section">
+            <div class="container">
+                <div class="confluences-header">
+                    <h2>Research Confluences with Motion Capture Data</h2>
+                    <p>The following confluences represent active research sites where motion capture data has been collected and processed. Click any dance to view its 3D skeletal reconstruction.</p>
+                </div>
 
-    // Add tile layer (using CartoDB Positron for a clean look)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 20
-    }).addTo(map);
+                <!-- WEST AFRICA REGION -->
+                <div class="region-divider">
+                    <div class="container">
+                        <h3>West Africa</h3>
+                        <p>Two active confluences with motion capture data from Nigeria and Ghana.</p>
+                    </div>
+                </div>
 
-    // Add labels as separate layer (on top)
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {
-      subdomains: 'abcd',
-      maxZoom: 20
-    }).addTo(map);
+                <!-- Eko Confluence (Nigeria) -->
+                <div class="confluence-card">
+                    <div class="confluence-header">
+                        <div class="confluence-id">WA#6</div>
+                        <h3>Eko Confluence</h3>
+                        <div class="confluence-region">Nigeria: Edo, Bini, and Tiv Peoples</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Eko Confluence centers on the southern and central regions of present-day Nigeria, encompassing the historical territories of the Edo (Benin Kingdom), Bini, and Tiv peoples. "Eko" references the Yoruba name for Lagos, acknowledging the region's role as a major coastal confluence point where inland and Atlantic trade routes have historically intersected. The confluence extends from the Niger Delta through the Benue River valley, capturing movement traditions that reflect both forest and savanna cultural zones.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Migrational Diffusions</h4>
+                            <p>Key nodes within this confluence include Benin City, the Benue River corridor, the Cross River region, and connections northward toward the Jos Plateau. These pathways represent centuries of trade, religious practice, and cultural exchange between coastal and inland communities.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>Eight dances are under focused investigation in this confluence. Motion capture data is available and has been processed into skeletal reconstructions for QTC analysis and visualization.</p>
+                            <span class="data-badge mocap">8 dances with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/sinclair_bata_cyberspace.html" class="dance-link">Bata</a>
+                                <a href="viz/sinclair_bata_extended_cyberspace.html" class="dance-link">Bata Extended</a>
+                                <a href="viz/sinclair_ekombi_cyberspace.html" class="dance-link">Ekombi</a>
+                                <a href="viz/sinclair_esapkaide_i_cyberspace.html" class="dance-link">Esapkaide I</a>
+                                <a href="viz/sinclair_esapkaide_ii_cyberspace.html" class="dance-link">Esapkaide II</a>
+                                <a href="viz/sinclair_esapkaide_iii_cyberspace.html" class="dance-link">Esapkaide III</a>
+                                <a href="viz/sinclair_swange_cyberspace.html" class="dance-link">Swange</a>
+                                <a href="viz/sinclair_ugho_cyberspace.html" class="dance-link">Ugho</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>The Eko region satisfies key confluence criteria through its position at the intersection of multiple ethnic territories, its long history as a trade and cultural center, and the persistence of distinct dance traditions that carry historical memory. The Edo kingdom's documented artistic traditions, the Tiv people's distinctive movement vocabulary, and the region's connections to both Atlantic and trans-Saharan networks make it a dense node for studying how dances travel and transform.</p>
+                        </div>
+                    </div>
+                </div>
 
-    // Custom marker icons
-    const markerColors = {
-      active: '#c45d3a',
-      planned: '#2d5a6b',
-      future: '#6b6b6b'
-    };
+                <!-- Ashanti Confluence (Ghana) -->
+                <div class="confluence-card">
+                    <div class="confluence-header ashanti">
+                        <div class="confluence-id">WA#3</div>
+                        <h3>Ashanti Confluence</h3>
+                        <div class="confluence-region">Ghana: Ewe and Ga Peoples</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Ashanti Confluence covers a multi-country region centered on present-day Ghana but extending into Togo, Côte d'Ivoire, Burkina Faso, and Niger. It uses the historical Ashanti Kingdom as a naming anchor while emphasizing the region's long history as a trading and cultural meeting point, including coastal access to the Gulf of Guinea. The current research focuses specifically on dances from the Ewe and Ga peoples of southeastern Ghana.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Migrational Diffusions</h4>
+                            <p>Migration and cultural diffusion have been identified in key areas including Tamale, Tumu, Garu, Ho, Abidjan, Tarkwa, Accra, Lomé, Bassar, and Kumasi, each functioning as a local constellation within the larger confluence.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>Seven dances are under focused investigation in this confluence, representing Ewe and Ga traditions. Motion capture data is available and has been processed into skeletal reconstructions.</p>
+                            <span class="data-badge mocap">7 dances with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/mustapha_adzogbo_cyberspace.html" class="dance-link">Adzogbo</a>
+                                <a href="viz/mustapha_agbadza_cyberspace.html" class="dance-link">Agbadza</a>
+                                <a href="viz/mustapha_atsiagbekor_cyberspace.html" class="dance-link">Atsiagbekor</a>
+                                <a href="viz/mustapha_bata_cyberspace.html" class="dance-link">Bata</a>
+                                <a href="viz/mustapha_djole_cyberspace.html" class="dance-link">Djole</a>
+                                <a href="viz/mustapha_fumefume_cyberspace.html" class="dance-link">Fumefume</a>
+                                <a href="viz/mustapha_kpanlongo_cyberspace.html" class="dance-link">Kpanlongo</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Ashanti satisfies nearly all confluence criteria: dense trade history, strong archival and academic presence (the University of Ghana at Legon is a prominent center for dance education in the region), active performance traditions, and a long record of coastal and inland exchange. The region scores highly across categories including dance styles, musical rhythms, shared cultural histories, language, agricultural activities, and city-state structure.</p>
+                        </div>
+                    </div>
+                </div>
 
-    function createMarkerIcon(status) {
-      return L.divIcon({
-        className: 'confluence-marker-container',
-        html: `<div class="confluence-marker" style="background-color: ${markerColors[status] || markerColors.active}"></div>`,
-        iconSize: [14, 14],
-        iconAnchor: [7, 7]
-      });
-    }
+                <!-- CARIBBEAN REGION -->
+                <div class="region-divider">
+                    <div class="container">
+                        <h3>Caribbean</h3>
+                        <p>Diasporic confluence tracing movement traditions from West Africa through the Atlantic.</p>
+                    </div>
+                </div>
 
-    // Confluence data and markers
-    let confluenceData = [];
-    let markers = {};
-    let activeMarker = null;
+                <!-- Cuba Confluence -->
+                <div class="confluence-card">
+                    <div class="confluence-header caribbean">
+                        <div class="confluence-id">CB#1</div>
+                        <h3>Havana Confluence</h3>
+                        <div class="confluence-region">Cuba: Orisha Traditions</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Havana Confluence represents a major diasporic node where West African movement traditions, particularly those of the Yoruba, were carried across the Atlantic and transformed in the context of colonial Cuba. The Orisha religious tradition preserved and adapted dances associated with specific deities, creating a living archive of movement that maintains connections to its West African origins while developing distinctly Caribbean characteristics.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Diasporic Connections</h4>
+                            <p>This confluence connects directly to the Eko and Ashanti confluences in West Africa, representing the Atlantic dimension of dance diffusion. Research traces how movement vocabularies associated with Yoruba religious practice traveled through the Middle Passage and were reconstituted in Cuban contexts, particularly in Havana, Matanzas, and Santiago de Cuba.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>Three Orisha dances have been captured and processed, each associated with specific deities in the Lucumí tradition. These recordings allow for direct comparison with West African source traditions.</p>
+                            <span class="data-badge mocap">3 dances with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/nadia_chango__cyberspace.html" class="dance-link">Changó</a>
+                                <a href="viz/nadia_kuele_kuele_cyberspace.html" class="dance-link">Kuele Kuele</a>
+                                <a href="viz/nadia_yemaya__cyberspace.html" class="dance-link">Yemayá</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Havana functions as a confluence because it concentrates multiple streams of African diasporic movement practice in a single urban zone with documented historical depth. The survival of Orisha dance traditions provides a unique opportunity to study how movement vocabularies persist and transform across forced migration, making this confluence essential for understanding the Atlantic dimension of global movement research.</p>
+                        </div>
+                    </div>
+                </div>
 
-    // Panel elements
-    const panelIntro = document.getElementById('panelIntro');
-    const panelContent = document.getElementById('panelContent');
+                <!-- SOUTH ASIA REGION -->
+                <div class="region-divider">
+                    <div class="container">
+                        <h3>South Asia</h3>
+                        <p>Classical and folk dance traditions from the island of Sri Lanka.</p>
+                    </div>
+                </div>
 
-    // Load confluence data
-    fetch('data/confluences.json')
-      .then(response => response.json())
-      .then(data => {
-        confluenceData = data.confluences;
-        
-        // Add markers
-        confluenceData.forEach(conf => {
-          const marker = L.marker(conf.coordinates, {
-            icon: createMarkerIcon(conf.status)
-          }).addTo(map);
-          
-          // Popup on hover
-          marker.bindPopup(`
-            <h4>${conf.name}</h4>
-            <p>${conf.location}</p>
-          `, {
-            closeButton: false,
-            offset: [0, -5]
-          });
-          
-          marker.on('mouseover', function() {
-            this.openPopup();
-          });
-          
-          marker.on('mouseout', function() {
-            this.closePopup();
-          });
-          
-          // Click to show panel
-          marker.on('click', function() {
-            showConfluence(conf.id);
-          });
-          
-          markers[conf.id] = marker;
+                <!-- Kandy Confluence -->
+                <div class="confluence-card">
+                    <div class="confluence-header southasia">
+                        <div class="confluence-id">SA#1</div>
+                        <h3>Kandy Confluence</h3>
+                        <div class="confluence-region">Sri Lanka: Kandyan Tradition</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Kandy Confluence centers on the central highlands of Sri Lanka, where the Kandyan Kingdom maintained its independence until the early 19th century and developed a distinctive court dance tradition. The city of Kandy, with its Temple of the Tooth and associated ritual practices, serves as the primary node, but the confluence extends throughout the central and southern regions where related folk and ritual dance forms persist.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Historical Connections</h4>
+                            <p>Sri Lanka's position on Indian Ocean trade routes connects this confluence to broader networks of cultural exchange spanning South Asia, Southeast Asia, and the East African coast. The Kandyan tradition itself synthesizes indigenous practices with influences absorbed through centuries of trade and religious contact.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>Six dances representing court, ritual, and folk traditions have been captured. The corpus includes the distinctive Vannama tradition, ritual dances associated with the Kohomba Kankariya ceremony, and regional folk forms.</p>
+                            <span class="data-badge mocap">6 dances with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/sudesh_baila_kappirinna_cyberspace.html" class="dance-link">Baila Kappirinna</a>
+                                <a href="viz/sudesh_folk___court_dance_cyberspace.html" class="dance-link">Folk & Court Dance</a>
+                                <a href="viz/sudesh_gajaga_vannama_fast_cyberspace.html" class="dance-link">Gajaga Vannama (Fast)</a>
+                                <a href="viz/sudesh_gajaga_vannama_slow_cyberspace.html" class="dance-link">Gajaga Vannama (Slow)</a>
+                                <a href="viz/sudesh_kohomba_kankariya_cyberspace.html" class="dance-link">Kohomba Kankariya</a>
+                                <a href="viz/sudesh_telme_ruhunu_cyberspace.html" class="dance-link">Telme Ruhunu</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Kandy qualifies as an atomic confluence through its documented historical continuity, the institutional preservation of dance knowledge through temple and court systems, and its position within broader Indian Ocean exchange networks. The survival of multiple dance genres (ritual, court, folk) within a relatively compact geographic zone makes it ideal for studying how movement traditions differentiate and persist within a single cultural matrix.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EUROPE REGION -->
+                <div class="region-divider">
+                    <div class="container">
+                        <h3>Europe</h3>
+                        <p>Vernacular dance traditions from Ireland.</p>
+                    </div>
+                </div>
+
+                <!-- Irish Confluence -->
+                <div class="confluence-card">
+                    <div class="confluence-header europe">
+                        <div class="confluence-id">EU#1</div>
+                        <h3>Irish Confluence</h3>
+                        <div class="confluence-region">Ireland: Step Dance Traditions</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Irish Confluence encompasses the island of Ireland, with particular attention to regional variations in step dance that developed across different counties and communities. Irish step dance represents a vernacular tradition that has been both preserved through competitive structures and transformed through globalization, making it an important case study for how dance traditions institutionalize and travel.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Diasporic Dimensions</h4>
+                            <p>Irish dance has significant diasporic extensions, particularly in North America and Australia, where immigrant communities maintained and adapted traditions. These global connections make the Irish confluence relevant for comparative study with other diasporic movement traditions in the GMR archive.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>Five step dances representing different forms within the tradition have been captured, including jigs, reels, and the distinctive sean-nós (old style) form that predates competitive standardization.</p>
+                            <span class="data-badge mocap">5 dances with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/kate_festival_blackbird_cyberspace.html" class="dance-link">Festival Blackbird</a>
+                                <a href="viz/kate_garden_of_daisies_cyberspace.html" class="dance-link">Garden of Daisies</a>
+                                <a href="viz/kate_molyneaux_blackbird_cyberspace.html" class="dance-link">Molyneaux Blackbird</a>
+                                <a href="viz/kate_sean-no_s_jigs_cyberspace.html" class="dance-link">Sean-nós Jigs</a>
+                                <a href="viz/kate_slip_jig_cyberspace.html" class="dance-link">Slip Jig</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Ireland functions as a confluence through the concentration of distinct movement traditions within a bounded geographic and cultural zone, combined with well-documented historical development and extensive diaspora. The contrast between competitive and vernacular forms, and between regional styles, provides material for studying how traditions differentiate, institutionalize, and travel.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AMERICAS REGION -->
+                <div class="region-divider">
+                    <div class="container">
+                        <h3>Americas</h3>
+                        <p>Dance traditions from Brazil and Puerto Rico.</p>
+                    </div>
+                </div>
+
+                <!-- Brazil Confluence -->
+                <div class="confluence-card">
+                    <div class="confluence-header americas">
+                        <div class="confluence-id">AM#1</div>
+                        <h3>Recife Confluence</h3>
+                        <div class="confluence-region">Brazil: Pernambuco Region</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The Recife Confluence centers on the northeastern Brazilian state of Pernambuco, particularly the cities of Recife and Olinda, where Carnival traditions have developed distinctive dance forms. This region represents another node in the Atlantic diasporic network, with documented historical connections to both West Africa and Portugal.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>One dance form from this region has been captured: Frevo, the acrobatic Carnival dance characteristic of Pernambuco. This initial capture establishes the confluence as an active research site with potential for expanded documentation.</p>
+                            <span class="data-badge mocap">1 dance with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/kate_frevo_cyberspace.html" class="dance-link">Frevo</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Recife qualifies as a confluence through its position as a major Atlantic port with documented African diasporic influence, the distinctive development of regional dance forms, and connections to broader Brazilian and Latin American movement networks. The region's Carnival traditions demonstrate how dance functions as cultural memory and community practice.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Puerto Rico Confluence -->
+                <div class="confluence-card">
+                    <div class="confluence-header americas">
+                        <div class="confluence-id">AM#2</div>
+                        <h3>San Juan Confluence</h3>
+                        <div class="confluence-region">Puerto Rico: Latin Social Dance</div>
+                    </div>
+                    <div class="confluence-body">
+                        <div class="confluence-section">
+                            <h4>Region and Focus</h4>
+                            <p>The San Juan Confluence represents Puerto Rico's position as a node in Caribbean and Latin American social dance networks. The island's location and history have made it a site where African, European, and indigenous influences combined to produce distinctive dance forms that subsequently traveled throughout the Americas.</p>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Dance Research Status</h4>
+                            <p>One social dance form has been captured, representing the contemporary Latin social dance tradition. This initial capture positions Puerto Rico as an emerging research site within the GMR framework.</p>
+                            <span class="data-badge mocap">1 dance with mocap data</span>
+                            <div class="dance-links">
+                                <a href="viz/annie_laura_salsa_cyberspace.html" class="dance-link">Salsa</a>
+                            </div>
+                        </div>
+                        <div class="confluence-section">
+                            <h4>Why It Is an Atomic Confluence</h4>
+                            <p>Puerto Rico functions as a confluence through its historical role in the development and dissemination of Latin social dance forms, its connections to both Caribbean and mainland American dance networks, and the continuing vitality of participatory dance culture. The island's position allows for comparative study with other Caribbean confluences.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Global Movement Research</h4>
+                    <p>Documenting human movement heritage through ethical motion capture and open archives.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Archive</h4>
+                    <ul>
+                        <li><a href="maps.html">Confluence Map</a></li>
+                        <li><a href="dances.html">Dance Visualizations</a></li>
+                        <li><a href="compare.html">Comparison Tool</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="methods.html">Methods</a></li>
+                        <li><a href="docs/aei-canonical-first-steps.html">AEI Documentation</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Movement Research. Sinclair Emoghene, University of Texas at Austin.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Nav scroll effect
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
         });
-      })
-      .catch(err => {
-        console.error('Error loading confluence data:', err);
-      });
-
-    // Show confluence in panel
-    function showConfluence(id) {
-      const conf = confluenceData.find(c => c.id === id);
-      if (!conf) return;
-      
-      // Update active marker styling
-      if (activeMarker) {
-        const prevConf = confluenceData.find(c => c.id === activeMarker);
-        if (prevConf && markers[activeMarker]) {
-          markers[activeMarker].setIcon(createMarkerIcon(prevConf.status));
-        }
-      }
-      
-      // Add active class to clicked marker
-      const markerEl = markers[id]._icon?.querySelector('.confluence-marker');
-      if (markerEl) {
-        markerEl.classList.add('active');
-      }
-      activeMarker = id;
-      
-      // Build links HTML
-      let linksHtml = '';
-      if (conf.links && conf.links.length > 0) {
-        linksHtml = `
-          <div class="panel-links">
-            ${conf.links.map(link => `
-              <a href="${link.url}" class="panel-link">${link.label}</a>
-            `).join('')}
-          </div>
-        `;
-      }
-      
-      // Update panel content
-      panelContent.innerHTML = `
-        <header class="panel-header">
-          <p class="panel-location">${conf.location}</p>
-          <h2>${conf.name}</h2>
-        </header>
-        
-        <div class="panel-meta">
-          <div class="meta-item">
-            <p class="meta-label">Timeframe</p>
-            <p class="meta-value">${conf.timeframe}</p>
-          </div>
-          <div class="meta-item">
-            <p class="meta-label">Lineages</p>
-            <p class="meta-value">${conf.lineages.join(', ')}</p>
-          </div>
-        </div>
-        
-        <div class="meta-item" style="margin-bottom: var(--space-xl);">
-          <p class="meta-label">Key Dances</p>
-          <p class="meta-value">${conf.dances.join(', ')}</p>
-        </div>
-        
-        <div class="panel-narrative">
-          <p>${conf.narrative}</p>
-        </div>
-        
-        ${linksHtml}
-      `;
-      
-      // Show content, hide intro
-      panelIntro.style.display = 'none';
-      panelContent.style.display = 'block';
-      
-      // Pan map to confluence (with offset for panel)
-      const offsetLng = window.innerWidth > 1024 ? 15 : 0;
-      map.panTo([conf.coordinates[0], conf.coordinates[1] - offsetLng], {
-        animate: true,
-        duration: 0.5
-      });
-    }
-
-    // Check for URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const confId = urlParams.get('id');
-    if (confId) {
-      // Wait for data to load, then show confluence
-      setTimeout(() => showConfluence(confId), 500);
-    }
-  </script>
+    </script>
 </body>
 </html>
