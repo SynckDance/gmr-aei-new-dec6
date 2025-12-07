@@ -1,110 +1,104 @@
-# Global Movement Research (GMR) Website
+# Global Movement Research — Interactive Site
 
-A public-facing website for Global Movement Research, designed to feel like a living, interactive research project rather than a code demo.
+Interactive archive for the Global Movement Research (GMR) project, featuring the Atomic Confluences map, theory frameworks, lab data, and AEI Horizon visualizations.
+
+**By Sinclair Ogaga Emoghene**  
+Department of Theatre and Dance, University of Texas at Austin
+
+---
+
+## Live Site
+
+Once deployed: `https://synckdance.github.io/gmr-site/`
+
+---
+
+## Quick Deploy
+
+### 1. Create repo on GitHub
+- Go to github.com/new
+- Name it `gmr-site` (or change `base` in vite.config.js to match)
+- Keep it public
+
+### 2. Push this code
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/synckdance/gmr-site.git
+git push -u origin main
+```
+
+### 3. Enable GitHub Pages
+- Go to repo Settings → Pages
+- Source: **GitHub Actions**
+- The workflow will auto-run on push
+
+### 4. Wait ~2 minutes
+Your site will be live at `https://synckdance.github.io/gmr-site/`
+
+---
+
+## Local Development
+
+```bash
+npm install
+npm run dev
+```
+
+Opens at `http://localhost:5173`
+
+---
 
 ## Structure
 
 ```
 gmr-site/
-├── index.html          # Homepage with hero and narrative sections
-├── maps.html           # Interactive confluence map (Waterworks-inspired)
-├── dances.html         # Gallery of 3D dance visualizations
-├── compare.html        # Side-by-side dance comparison interface
-├── methods.html        # Technical methods explainer
-├── css/
-│   └── style.css       # Full design system
-├── js/                 # (For future JavaScript modules)
-├── data/
-│   └── confluences.json # Confluence/region data for the map
-├── viz/
-│   ├── bata-sinclair.html      # Placeholder - replace with actual viz
-│   └── esapkaide-sinclair.html # Placeholder - replace with actual viz
-└── docs/
-    └── aei-canonical-first-steps.html # AEI documentation (placeholder)
+├── src/
+│   ├── App.jsx          # Main GMR component
+│   ├── main.jsx         # Entry point
+│   └── index.css        # Global styles
+├── index.html
+├── vite.config.js       # Build config (change base path here)
+├── package.json
+└── .github/
+    └── workflows/
+        └── deploy.yml   # Auto-deploy on push
 ```
-
-## Quick Start
-
-1. **Clone or download** this folder to your local machine
-2. **Open `index.html`** in a browser to preview locally
-3. **Push to GitHub** and enable GitHub Pages in repository settings
-
-The site is static HTML/CSS/JS with no build step required.
-
-## Customization Checklist
-
-### Replace Placeholders
-
-- [ ] **Visualizations**: Replace `viz/bata-sinclair.html` and `viz/esapkaide-sinclair.html` with your actual Three.js visualization files
-- [ ] **AEI Documentation**: Replace `docs/aei-canonical-first-steps.html` with rendered content from your `aei-canonical-first-steps.md`
-- [ ] **Confluence Data**: Update `data/confluences.json` with real narratives, timeframes, and links
-
-### Update Content
-
-- [ ] Review all narrative text on `index.html` and `methods.html` for accuracy
-- [ ] Add your StoryMap links where indicated
-- [ ] Update GitHub repository links throughout
-- [ ] Add real thumbnails for dance cards (optional)
-
-### Extend the Archive
-
-To add new dances:
-
-1. Add the visualization HTML file to `viz/`
-2. Update the `dances` array in `dances.html`
-3. Update the `dances` array in `compare.html`
-4. Add the dance to relevant confluences in `data/confluences.json`
-
-To add new confluences:
-
-1. Add an entry to `data/confluences.json` with:
-   - `id`: Unique identifier
-   - `name`: Display name
-   - `location`: Geographic context
-   - `coordinates`: [lat, lng] for map marker
-   - `timeframe`: Research period
-   - `lineages`: Cultural lineages
-   - `dances`: Key dances
-   - `narrative`: Full description
-   - `links`: Related visualizations/pages
-   - `status`: "active", "planned", or "future"
-
-## Design System
-
-The CSS design system uses CSS custom properties for consistent styling:
-
-### Colors
-- `--color-ink`: Primary text (#1a1a1a)
-- `--color-paper`: Background (#faf9f7)
-- `--color-earth`: Primary accent (#8b5e3c)
-- `--color-ocean`: Secondary accent (#2d5a6b)
-- `--color-confluence`: Map markers (#c45d3a)
-
-### Typography
-- Display: Playfair Display (serif)
-- Body: Source Sans 3 (sans-serif)
-- Mono: IBM Plex Mono (code/labels)
-
-### Spacing
-Follows a consistent scale: `--space-xs` through `--space-4xl`
-
-## Dependencies
-
-External dependencies loaded via CDN:
-- **Google Fonts**: Playfair Display, Source Sans 3, IBM Plex Mono
-- **Leaflet 1.9.4**: For the interactive map
-- **CartoDB Basemaps**: Clean map tiles
-
-No npm/build dependencies required.
-
-## Browser Support
-
-Tested in modern browsers (Chrome, Firefox, Safari, Edge). Uses CSS custom properties and modern JavaScript features—IE11 is not supported.
-
-## License
-
-[Add your license information]
 
 ---
 
-Built with care for Global Movement Research. For questions, contact [your contact info].
+## Customization
+
+**Change repo name:**  
+Edit `base` in `vite.config.js` to match your repo name.
+
+**Add custom domain:**  
+1. Add CNAME file to `public/` folder with your domain
+2. Update DNS to point to GitHub Pages
+3. Could become `gmr.sinclair.dance`
+
+---
+
+## Sections
+
+1. **Atomic Confluences** — Interactive map of 30 sites
+2. **Theory & Methods** — Frozen/Motion/Living/Thinking Archives, ACF, DRP, QTC, SAM
+3. **Labs & Data** — YouTube archive, data artifacts
+4. **Geospatial & Migration** — Movement connections and routes  
+5. **AEI Horizon** — 3D visualizations, AEI Activation Framework
+6. **Writing Archive** — Essays and publications
+
+---
+
+## Links
+
+- Main site: [sinclair.dance](https://sinclair.dance)
+- 3D Visualizations: [synckdance.github.io/gmr_space_visualizations](https://synckdance.github.io/gmr_space_visualizations/)
+
+---
+
+## License
+
+© Sinclair Ogaga Emoghene. All rights reserved.
