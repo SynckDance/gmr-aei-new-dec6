@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEI Canonical First Steps — Global Movement Research</title>
+  <meta name="description" content="Technical appendix for the AEI (Artificial Embodied Intelligence) Activation Framework.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/style.css">
+  
+  <style>
+    .doc-container {
+      max-width: 48rem;
+      margin: 0 auto;
+      padding: calc(80px + var(--space-3xl)) var(--space-xl) var(--space-3xl);
+    }
+    
+    .doc-header {
+      margin-bottom: var(--space-3xl);
+      padding-bottom: var(--space-xl);
+      border-bottom: 1px solid var(--color-paper-dark);
+    }
+    
+    .doc-meta {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-ink-faded);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-md);
+    }
+    
+    .doc-content h2 {
+      font-size: var(--text-2xl);
+      margin-top: var(--space-3xl);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .doc-content h3 {
+      font-size: var(--text-xl);
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-md);
+    }
+    
+    .doc-content p {
+      margin-bottom: var(--space-lg);
+      line-height: 1.8;
+    }
+    
+    .doc-content code {
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      background: var(--color-paper-warm);
+      padding: 0.1em 0.3em;
+      border-radius: 2px;
+    }
+    
+    .doc-content pre {
+      background: var(--color-ink);
+      color: var(--color-paper);
+      padding: var(--space-lg);
+      overflow-x: auto;
+      margin-bottom: var(--space-xl);
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.6;
+    }
+    
+    .doc-content ul, .doc-content ol {
+      margin-bottom: var(--space-lg);
+      padding-left: var(--space-xl);
+    }
+    
+    .doc-content li {
+      margin-bottom: var(--space-sm);
+      line-height: 1.7;
+    }
+    
+    .placeholder-note {
+      background: var(--color-paper-warm);
+      border-left: 3px solid var(--color-earth);
+      padding: var(--space-lg);
+      margin: var(--space-2xl) 0;
+    }
+    
+    .placeholder-note p {
+      margin: 0;
+      color: var(--color-ink-light);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="site-nav" id="nav">
+    <div class="nav-inner">
+      <a href="../index.html" class="nav-logo">GMR <span>Global Movement Research</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="../maps.html">Confluences</a></li>
+        <li><a href="../dances.html">Dances</a></li>
+        <li><a href="../compare.html">Compare</a></li>
+        <li><a href="../methods.html">Methods</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="doc-container">
+    <header class="doc-header">
+      <p class="doc-meta">Technical Appendix • Version 0.1</p>
+      <h1>AEI Canonical First Steps</h1>
+      <p class="lead">
+        A technical framework for activating archived movement data through ethical, non-generative AI systems.
+      </p>
+    </header>
+    
+    <div class="doc-content">
+      <div class="placeholder-note">
+        <p><strong>Note:</strong> This is a placeholder document. Replace this file with your actual <code>aei-canonical-first-steps.md</code> content, either rendered to HTML or linked directly to the GitHub view.</p>
+      </div>
+      
+      <h2>1. Overview</h2>
+      <p>
+        AEI (Artificial Embodied Intelligence) is a framework for working with movement archives that prioritizes activation over generation. Unlike generative AI systems that synthesize novel content, AEI focuses on transforming, analyzing, and discovering relationships within existing recorded movement.
+      </p>
+      <p>
+        This document describes the canonical first steps for implementing an AEI-compliant system.
+      </p>
+      
+      <h2>2. Core Principles</h2>
+      
+      <h3>2.1 Non-Generative Operation</h3>
+      <p>
+        AEI systems do not create new dances. They operate on recorded movement data, performing transformations such as:
+      </p>
+      <ul>
+        <li>Format conversion (video → skeletal coordinates → QTC sequences)</li>
+        <li>Feature extraction (identifying movement phrases, rhythmic patterns, spatial trajectories)</li>
+        <li>Similarity detection (finding correspondences between dances)</li>
+        <li>Visualization (rendering movement data in comprehensible forms)</li>
+      </ul>
+      
+      <h3>2.2 Ethical Metadata</h3>
+      <p>
+        Every movement record in an AEI-compliant archive carries metadata specifying:
+      </p>
+      <ul>
+        <li><code>consent_level</code>: What permissions were granted for this recording</li>
+        <li><code>attribution</code>: Required credits for any use</li>
+        <li><code>permitted_uses</code>: Array of allowed operations (research, education, visualization, etc.)</li>
+        <li><code>restricted_uses</code>: Explicitly prohibited operations</li>
+        <li><code>community_contact</code>: How to reach source communities for additional permissions</li>
+      </ul>
+      
+      <h3>2.3 Interpretive Humility</h3>
+      <p>
+        AEI systems flag findings as hypotheses, not facts. Output always includes confidence levels and suggests avenues for human verification.
+      </p>
+      
+      <h2>3. Implementation Phases</h2>
+      
+      <h3>Phase 1: Data Ingestion</h3>
+      <p>
+        [Content to be added from your documentation]
+      </p>
+      
+      <h3>Phase 2: Feature Extraction</h3>
+      <p>
+        [Content to be added from your documentation]
+      </p>
+      
+      <h3>Phase 3: Relationship Discovery</h3>
+      <p>
+        [Content to be added from your documentation]
+      </p>
+      
+      <h3>Phase 4: Interface Design</h3>
+      <p>
+        [Content to be added from your documentation]
+      </p>
+      
+      <h2>4. Technical Specifications</h2>
+      
+      <h3>4.1 Data Formats</h3>
+      <pre>
+{
+  "movement_record": {
+    "id": "bata-sinclair-001",
+    "source": {
+      "type": "mocap",
+      "system": "Vicon",
+      "framerate": 120,
+      "capture_date": "2023-06-15"
+    },
+    "metadata": {
+      "dance_name": "Bata",
+      "performer": "Sinclair",
+      "tradition": "Yoruba",
+      "consent_level": "research_and_education",
+      "attribution": "GMR Lab / [Community Name]"
+    },
+    "data": {
+      "skeleton": "[path to skeletal data]",
+      "qtc": "[path to QTC sequence]",
+      "features": "[path to extracted features]"
+    }
+  }
+}
+      </pre>
+      
+      <h3>4.2 QTC Encoding</h3>
+      <p>
+        [Content to be added from your documentation]
+      </p>
+      
+      <h2>5. Ethical Checklist</h2>
+      <p>
+        Before any AEI operation, verify:
+      </p>
+      <ol>
+        <li>Movement data has appropriate consent metadata</li>
+        <li>Intended operation is within permitted uses</li>
+        <li>Attribution requirements are met in any output</li>
+        <li>Source communities have been consulted for sensitive analyses</li>
+        <li>Findings are presented as hypotheses, not conclusions</li>
+      </ol>
+      
+      <h2>6. References</h2>
+      <p>
+        [To be populated with your references]
+      </p>
+      
+      <div class="placeholder-note" style="margin-top: var(--space-3xl);">
+        <p>
+          <strong>To complete this document:</strong> Replace the placeholder sections with content from your <code>aei-canonical-first-steps.md</code> file. You can either render the Markdown to HTML using a tool like Pandoc, or link directly to the GitHub-rendered version.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Global Movement Research</h3>
+        <p>Tracing how dances move across time and space, and building archives that can think with the bodies they hold.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="../maps.html">Confluences</a></li>
+          <li><a href="../dances.html">Dances</a></li>
+          <li><a href="../compare.html">Compare</a></li>
+          <li><a href="../methods.html">Methods</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="aei-canonical-first-steps.html">AEI Appendix</a></li>
+          <li><a href="https://github.com/synckdance/gmr-site" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Global Movement Research © 2024. This is an ongoing research project.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>

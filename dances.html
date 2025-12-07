@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dance Archive | Global Movement Research</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .gallery-intro {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+        
+        .gallery-intro p {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+        }
+        
+        .tradition-section {
+            margin-bottom: 4rem;
+        }
+        
+        .tradition-header {
+            display: flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--earth);
+        }
+        
+        .tradition-header h2 {
+            font-family: var(--font-display);
+            font-size: 1.75rem;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        
+        .tradition-meta {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .tradition-description {
+            margin-bottom: 1.5rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+        }
+        
+        .dance-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .dance-card {
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        
+        .dance-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        
+        .dance-preview {
+            height: 160px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .dance-preview::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 30% 50%, rgba(0,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(255,0,255,0.1) 0%, transparent 50%);
+        }
+        
+        .dance-preview svg {
+            width: 64px;
+            height: 64px;
+            opacity: 0.6;
+        }
+        
+        .play-overlay {
+            position: absolute;
+            width: 48px;
+            height: 48px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+        
+        .dance-card:hover .play-overlay {
+            opacity: 1;
+        }
+        
+        .play-overlay svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--earth);
+            margin-left: 3px;
+        }
+        
+        .dance-info {
+            padding: 1.25rem;
+        }
+        
+        .dance-info h3 {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+        
+        .dance-info .performer {
+            font-size: 0.85rem;
+            color: var(--ocean);
+            margin-bottom: 0.5rem;
+        }
+        
+        .dance-info .description {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            width: 95%;
+            height: 90%;
+            max-width: 1400px;
+            position: relative;
+        }
+        
+        .modal-header {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+        
+        .modal-title {
+            font-family: var(--font-display);
+            font-size: 1.25rem;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            line-height: 1;
+        }
+        
+        .modal-close:hover {
+            color: var(--terracotta);
+        }
+        
+        .modal iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* Stats bar */
+        .archive-stats {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 8px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--earth);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* Filter tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .filter-tab {
+            padding: 0.5rem 1rem;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .filter-tab:hover,
+        .filter-tab.active {
+            background: var(--earth);
+            color: white;
+            border-color: var(--earth);
+        }
+        
+        @media (max-width: 768px) {
+            .archive-stats {
+                gap: 1rem;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            .tradition-header {
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">GMR</a>
+            <ul class="nav-links">
+                <li><a href="maps.html">Map</a></li>
+                <li><a href="dances.html" class="active">Dances</a></li>
+                <li><a href="compare.html">Compare</a></li>
+                <li><a href="methods.html">Methods</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <header class="page-header">
+                <h1>Dance Archive</h1>
+                <p class="subtitle">Motion-capture visualizations from four continents</p>
+            </header>
+            
+            <div class="gallery-intro">
+                <p>Each visualization transforms motion-capture data into navigable 3D space. 
+                These are not simulations or animations—they are recordings of actual dancers, 
+                translated into geometric forms that reveal the underlying architecture of movement.</p>
+            </div>
+            
+            <div class="archive-stats">
+                <div class="stat">
+                    <div class="stat-number">33</div>
+                    <div class="stat-label">Dances</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Performers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Traditions</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Continents</div>
+                </div>
+            </div>
+            
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">All Traditions</button>
+                <button class="filter-tab" data-filter="west-africa">West Africa</button>
+                <button class="filter-tab" data-filter="afro-cuban">Afro-Cuban</button>
+                <button class="filter-tab" data-filter="sri-lanka">Sri Lanka</button>
+                <button class="filter-tab" data-filter="irish">Irish</button>
+                <button class="filter-tab" data-filter="brazilian">Brazilian</button>
+                <button class="filter-tab" data-filter="latin">Latin</button>
+            </div>
+
+            <!-- WEST AFRICA: Sinclair -->
+            <section class="tradition-section" data-tradition="west-africa">
+                <div class="tradition-header">
+                    <h2>Edo, Bini & Tiv Traditions</h2>
+                    <span class="tradition-meta">Nigeria/Benin • Performer: Sinclair</span>
+                </div>
+                <p class="tradition-description">
+                    Dances from the Edo Kingdom (Benin City) and the Tiv people of central Nigeria. 
+                    These forms carry ceremonial, social, and spiritual functions developed over centuries 
+                    in the Niger-Benue confluence region.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="sinclair_ugho_cyberspace.html" data-title="Ugho">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Ugho</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Edo royal court dance performed during ceremonies honoring the Oba</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_swange_cyberspace.html" data-title="Swange">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Swange</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Tiv social dance blending traditional movements with highlife influences</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_ekombi_cyberspace.html" data-title="Ekombi">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Ekombi</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Efik/Ibibio maiden dance from Cross River, characterized by graceful arm movements</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_esapkaide_i_cyberspace.html" data-title="Esapkaide I">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Esapkaide I</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Bini ceremonial dance, first variation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_esapkaide_ii_cyberspace.html" data-title="Esapkaide II">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Esapkaide II</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Bini ceremonial dance, second variation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_esapkaide_iii_cyberspace.html" data-title="Esapkaide III">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Esapkaide III</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Bini ceremonial dance, third variation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_bata_cyberspace.html" data-title="Bata (Sinclair)">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Bata</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Sacred drum dance honoring Yoruba orisha</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sinclair_bata_extended_cyberspace.html" data-title="Bata Extended">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Bata (Extended)</h3>
+                            <div class="performer">Sinclair</div>
+                            <div class="description">Extended Bata sequence with additional variations</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- WEST AFRICA: Mustapha -->
+            <section class="tradition-section" data-tradition="west-africa">
+                <div class="tradition-header">
+                    <h2>Ewe & Ga Traditions</h2>
+                    <span class="tradition-meta">Ghana/Togo • Performer: Mustapha</span>
+                </div>
+                <p class="tradition-description">
+                    Dances from the Ewe people of southeastern Ghana and Togo, and the Ga people of the 
+                    Greater Accra region. These traditions include warrior dances, agricultural celebrations, 
+                    and ceremonial forms tied to the spiritual life of coastal West Africa.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="mustapha_atsiagbekor_cyberspace.html" data-title="Atsiagbekor">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Atsiagbekor</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Ewe warrior dance commemorating historical battles, featuring dramatic gestures</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_agbadza_cyberspace.html" data-title="Agbadza">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Agbadza</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Ewe social dance evolved from war dance, now performed at festivals</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_adzogbo_cyberspace.html" data-title="Adzogbo">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Adzogbo</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Ewe ritual dance with spiritual significance, performed in sacred contexts</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_kpanlongo_cyberspace.html" data-title="Kpanlongo">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Kpanlongo</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Ga recreational dance from Accra, popular at social gatherings</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_djole_cyberspace.html" data-title="Djole">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Djole</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Celebratory dance from the Temne people, spread throughout West Africa</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_fumefume_cyberspace.html" data-title="Fumefume">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Fumefume</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Ga children's dance teaching rhythm and coordination</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="mustapha_bata_cyberspace.html" data-title="Bata (Mustapha)">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Bata</h3>
+                            <div class="performer">Mustapha</div>
+                            <div class="description">Yoruba sacred drum dance—compare with Sinclair's interpretation</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AFRO-CUBAN: Nadia -->
+            <section class="tradition-section" data-tradition="afro-cuban">
+                <div class="tradition-header">
+                    <h2>Orisha Dance Traditions</h2>
+                    <span class="tradition-meta">Cuba (Yoruba diaspora) • Performer: Nadia</span>
+                </div>
+                <p class="tradition-description">
+                    Dances honoring the orishas—Yoruba deities carried to Cuba through the Middle Passage 
+                    and preserved within Santería practice. Each dance embodies the character and energy 
+                    of its orisha, maintaining West African spiritual choreography across centuries of diaspora.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="nadia_yemaya__cyberspace.html" data-title="Yemayá">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Yemayá</h3>
+                            <div class="performer">Nadia</div>
+                            <div class="description">Dance of the ocean mother orisha, flowing movements evoking waves</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="nadia_chango__cyberspace.html" data-title="Changó">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Changó</h3>
+                            <div class="performer">Nadia</div>
+                            <div class="description">Dance of the thunder orisha, powerful and percussive movements</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="nadia_kuele_kuele_cyberspace.html" data-title="Kuele Kuele">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Kuele Kuele</h3>
+                            <div class="performer">Nadia</div>
+                            <div class="description">Afro-Cuban ceremonial dance with call-and-response structure</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SRI LANKA: Sudesh -->
+            <section class="tradition-section" data-tradition="sri-lanka">
+                <div class="tradition-header">
+                    <h2>Kandyan & Low Country Traditions</h2>
+                    <span class="tradition-meta">Sri Lanka • Performer: Sudesh</span>
+                </div>
+                <p class="tradition-description">
+                    Classical and folk dances from Sri Lanka's distinct regional traditions: the refined 
+                    Kandyan style from the central highlands with its elaborate costumes and temple rituals, 
+                    and the exorcism-rooted Low Country dances of the southern coast.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="sudesh_kohomba_kankariya_cyberspace.html" data-title="Kohomba Kankariya">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Kohomba Kankariya</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Sacred Kandyan ritual dance performed in the devale temples</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sudesh_telme_ruhunu_cyberspace.html" data-title="Telme Ruhunu">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Telme Ruhunu</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Southern Low Country dance from the Ruhunu region</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sudesh_gajaga_vannama_slow_cyberspace.html" data-title="Gajaga Vannama (Slow)">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Gajaga Vannama (Slow)</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Elephant vannama depicting majesty—slow tempo variation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sudesh_gajaga_vannama_fast_cyberspace.html" data-title="Gajaga Vannama (Fast)">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Gajaga Vannama (Fast)</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Elephant vannama—fast tempo variation showing rhythmic range</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sudesh_folk___court_dance_cyberspace.html" data-title="Folk & Court Dance">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Folk & Court Dance</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Contrasting folk and court styles in single sequence</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="sudesh_baila_kappirinna_cyberspace.html" data-title="Baila Kappirinna">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Baila Kappirinna</h3>
+                            <div class="performer">Sudesh</div>
+                            <div class="description">Sri Lankan baila with Portuguese colonial influences</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- IRISH: Kate -->
+            <section class="tradition-section" data-tradition="irish">
+                <div class="tradition-header">
+                    <h2>Irish Step Dance</h2>
+                    <span class="tradition-meta">Ireland • Performer: Kate</span>
+                </div>
+                <p class="tradition-description">
+                    Solo step dances from the Irish tradition, including competitive and sean-nós (old style) 
+                    forms. These dances emphasize intricate footwork, upright carriage, and rhythmic precision 
+                    developed over centuries in rural Ireland and refined through competition systems.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="kate_slip_jig_cyberspace.html" data-title="Slip Jig">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Slip Jig</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Graceful dance in 9/8 time, traditionally performed by women</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="kate_sean-no_s_jigs_cyberspace.html" data-title="Sean-nós Jigs">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Sean-nós Jigs</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Old-style informal dancing with relaxed upper body and improvisation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="kate_festival_blackbird_cyberspace.html" data-title="Festival Blackbird">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Festival Blackbird</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Traditional set dance performed at festivals and competitions</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="kate_molyneaux_blackbird_cyberspace.html" data-title="Molyneaux Blackbird">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Molyneaux Blackbird</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Variation of Blackbird from the Molyneaux tradition</div>
+                        </div>
+                    </div>
+                    
+                    <div class="dance-card" data-viz="kate_garden_of_daisies_cyberspace.html" data-title="Garden of Daisies">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Garden of Daisies</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Traditional set dance with distinctive melodic accompaniment</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BRAZILIAN: Kate -->
+            <section class="tradition-section" data-tradition="brazilian">
+                <div class="tradition-header">
+                    <h2>Brazilian Dance</h2>
+                    <span class="tradition-meta">Brazil • Performer: Kate</span>
+                </div>
+                <p class="tradition-description">
+                    Frevo emerged in Recife, Pernambuco during the late 19th century, blending African, 
+                    indigenous, and European influences into an acrobatic carnival dance performed to 
+                    frenetic brass band music.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="kate_frevo_cyberspace.html" data-title="Frevo">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Frevo</h3>
+                            <div class="performer">Kate</div>
+                            <div class="description">Acrobatic Pernambuco carnival dance with characteristic umbrella</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- LATIN: Annie/Laura -->
+            <section class="tradition-section" data-tradition="latin">
+                <div class="tradition-header">
+                    <h2>Latin Social Dance</h2>
+                    <span class="tradition-meta">Caribbean/Latin America • Performer: Annie & Laura</span>
+                </div>
+                <p class="tradition-description">
+                    Partner dances from the Latin American and Caribbean social dance traditions, 
+                    representing the fusion of African, European, and indigenous movement vocabularies 
+                    in the Americas.
+                </p>
+                <div class="dance-grid">
+                    <div class="dance-card" data-viz="annie_laura_salsa_cyberspace.html" data-title="Salsa">
+                        <div class="dance-preview">
+                            <div class="play-overlay">
+                                <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+                            </div>
+                        </div>
+                        <div class="dance-info">
+                            <h3>Salsa</h3>
+                            <div class="performer">Annie & Laura</div>
+                            <div class="description">Partner dance combining Cuban son, mambo, and Puerto Rican influences</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Interpretive Note -->
+            <section class="interpretive-note">
+                <h2>Reading These Visualizations</h2>
+                <p>
+                    These cyberspace renderings translate motion-capture point clouds into navigable 3D environments. 
+                    The geometric forms are not interpretations—they are direct mappings of captured joint positions 
+                    over time. What you're seeing is the literal shape that movement makes in space.
+                </p>
+                <p>
+                    Use your mouse to orbit and zoom. Notice how different traditions create different spatial 
+                    signatures: the vertical emphasis of Irish step, the horizontal expansions of Ewe warrior dances, 
+                    the spiraling paths of Orisha embodiment. These geometries are cultural fingerprints.
+                </p>
+                <p>
+                    For comparative analysis, use the <a href="compare.html">Compare</a> tool to view 
+                    two dances side by side and explore structural relationships across traditions.
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4>Global Movement Research</h4>
+                    <p>Documenting human movement heritage through ethical motion capture and open archives.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Archive</h4>
+                    <ul>
+                        <li><a href="maps.html">Confluence Map</a></li>
+                        <li><a href="dances.html">Dance Visualizations</a></li>
+                        <li><a href="compare.html">Comparison Tool</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="methods.html">Methods</a></li>
+                        <li><a href="docs/aei-canonical-first-steps.html">AEI Documentation</a></li>
+                        <li><a href="#">GitHub Repository</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Global Movement Research. Open source under MIT License.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal" id="vizModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title"></span>
+                <button class="modal-close">&times;</button>
+            </div>
+            <iframe id="vizFrame" src=""></iframe>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('vizModal');
+        const modalTitle = modal.querySelector('.modal-title');
+        const modalFrame = document.getElementById('vizFrame');
+        const modalClose = modal.querySelector('.modal-close');
+        
+        document.querySelectorAll('.dance-card').forEach(card => {
+            card.addEventListener('click', () => {
+                const viz = card.dataset.viz;
+                const title = card.dataset.title;
+                modalTitle.textContent = title;
+                modalFrame.src = 'viz/' + viz;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+        
+        function closeModal() {
+            modal.classList.remove('active');
+            modalFrame.src = '';
+            document.body.style.overflow = '';
+        }
+        
+        // Filter functionality
+        const filterTabs = document.querySelectorAll('.filter-tab');
+        const sections = document.querySelectorAll('.tradition-section');
+        
+        filterTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const filter = tab.dataset.filter;
+                
+                filterTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                sections.forEach(section => {
+                    if (filter === 'all' || section.dataset.tradition === filter) {
+                        section.style.display = 'block';
+                    } else {
+                        section.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Nav scroll effect
+        const nav = document.querySelector('.nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+    </script>
+</body>
+</html>

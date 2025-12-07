@@ -1,23 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Global Movement Research - Interactive archive of African diaspora dance traditions, motion capture data, and embodied archives." />
-    <meta name="author" content="Sinclair Ogaga Emoghene" />
-    
-    <!-- Open Graph / Social -->
-    <meta property="og:title" content="Global Movement Research" />
-    <meta property="og:description" content="Interactive archive of African diaspora dance traditions, motion capture data, and embodied archives." />
-    <meta property="og:type" content="website" />
-    
-    <title>Global Movement Research | Sinclair Ogaga Emoghene</title>
-    
-    <!-- Favicon (add your own) -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Global Movement Research — Where Dances Travel</title>
+  <meta name="description" content="A research project exploring how dances emerge from specific places, travel across continents, and how archives can move from storage to living, thinking systems.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="site-nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">GMR <span>Global Movement Research</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="maps.html">Confluences</a></li>
+        <li><a href="dances.html">Dances</a></li>
+        <li><a href="compare.html">Compare</a></li>
+        <li><a href="methods.html">Methods</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">A Living Research Project</p>
+      <h1>Global Movement Research</h1>
+      <p class="hero-subtitle">
+        How dances move, survive displacement, and how archives can think with the bodies they hold.
+      </p>
+      <div class="hero-cta">
+        <a href="maps.html" class="btn btn-primary">Explore the Map</a>
+        <a href="dances.html" class="btn btn-secondary">See the Dances</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What is GMR -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Introduction</p>
+        <h2>What is Global Movement Research?</h2>
+      </div>
+      <div class="prose">
+        <p class="lead">
+          Dances are not simply performed—they are inherited, carried, and sometimes lost. GMR is a long-term research project that traces how movement traditions emerge from specific places and travel across villages, cities, oceans, and digital media.
+        </p>
+        <p>
+          Most dance archives are <em>frozen</em>—collections of video and notation stored for preservation but rarely touched. They hold the shape of a body's gesture but cannot respond to questions about where that gesture came from, who else moved that way, or why it survived when so much else did not.
+        </p>
+        <p>
+          GMR experiments with unfreezing these archives. We are building methods to transform them from static storage into what we call <em>motion archives</em>, then <em>living archives</em>, and ultimately <em>thinking archives</em>—systems that can discover relationships between dances, trace patterns of diffusion, and support research that was previously impossible.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why This Matters -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Stakes</p>
+        <h2>Why does this matter?</h2>
+      </div>
+      <div class="prose">
+        <p>
+          Dance traditions carry cultural memory in ways that text and image cannot fully capture. When communities are displaced—by colonialism, migration, or environmental change—their dances often travel with them, adapting and persisting in diaspora.
+        </p>
+        <p>
+          But these histories are difficult to trace. A gesture performed in Salvador da Bahia might echo one performed in the Niger Delta centuries ago, yet no archive can currently detect that connection automatically. Traditional cataloging misses what the body remembers.
+        </p>
+        <p>
+          We need archives that can do more than store. We need archives that can <em>think</em>—that can help researchers, communities, and practitioners discover the relationships between movements across time and space. Not to replace human expertise, but to augment it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- What You Can Do -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Explore</p>
+        <h2>What you can do on this site</h2>
+      </div>
+      <div class="features-grid">
+        <article class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <h3>Explore Confluences</h3>
+          <p>Navigate a global map of research sites—places where dance traditions converge, diverge, and transform. Each confluence tells a story.</p>
+        </article>
+        
+        <article class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+          </svg>
+          <h3>Watch 3D Reconstructions</h3>
+          <p>See skeletal visualizations of dances reconstructed from motion capture. These are research artifacts, not performances—but they reveal how bodies move through space.</p>
+        </article>
+        
+        <article class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <rect x="2" y="3" width="8" height="18" rx="1"/>
+            <rect x="14" y="3" width="8" height="18" rx="1"/>
+            <path d="M10 12h4"/>
+          </svg>
+          <h3>Compare Dances</h3>
+          <p>Place two dances side by side to study their kinesthetic signatures. Where do they overlap? Where do they diverge? What might that mean?</p>
+        </article>
+        
+        <article class="feature-card">
+          <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+            <polyline points="14 2 14 8 20 8"/>
+            <line x1="16" y1="13" x2="8" y2="13"/>
+            <line x1="16" y1="17" x2="8" y2="17"/>
+          </svg>
+          <h3>Read the Methods</h3>
+          <p>Learn about QTC, SAMs, and the AEI activation framework—the technical scaffolding that makes this research possible.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archive Continuum -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Framework</p>
+        <h2>From Frozen to Thinking</h2>
+      </div>
+      <div class="prose" style="color: rgba(255,255,255,0.8);">
+        <p>
+          GMR proposes a continuum for understanding what archives can become:
+        </p>
+      </div>
+      <div class="methods-grid" style="margin-top: var(--space-2xl);">
+        <div class="method-block" style="background: rgba(255,255,255,0.05); border-color: var(--color-earth-light);">
+          <h3 style="color: var(--color-paper);">Frozen Archive</h3>
+          <p style="color: rgba(255,255,255,0.7);">Storage without action. Videos and documents sit in repositories, accessible but inert. Most dance archives remain here.</p>
+        </div>
+        <div class="method-block" style="background: rgba(255,255,255,0.05); border-color: var(--color-earth-light);">
+          <h3 style="color: var(--color-paper);">Motion Archive</h3>
+          <p style="color: rgba(255,255,255,0.7);">Movement data extracted and structured. Bodies become searchable points in space. The archive begins to speak in coordinates.</p>
+        </div>
+        <div class="method-block" style="background: rgba(255,255,255,0.05); border-color: var(--color-earth-light);">
+          <h3 style="color: var(--color-paper);">Living Archive</h3>
+          <p style="color: rgba(255,255,255,0.7);">Relationships emerge. Dances are compared, clustered, and connected. The archive grows as new material arrives.</p>
+        </div>
+        <div class="method-block" style="background: rgba(255,255,255,0.05); border-color: var(--color-earth-light);">
+          <h3 style="color: var(--color-paper);">Thinking Archive</h3>
+          <p style="color: rgba(255,255,255,0.7);">The archive asks questions. It proposes hypotheses about movement diffusion, flags anomalies, and supports research that humans alone could not conduct.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Links Out -->
+  <section class="section">
+    <div class="section-inner text-center">
+      <div class="section-header" style="text-align: center;">
+        <p class="section-label">Go Deeper</p>
+        <h2>Continue Exploring</h2>
+      </div>
+      <div style="display: flex; gap: var(--space-lg); justify-content: center; flex-wrap: wrap; margin-top: var(--space-2xl);">
+        <a href="maps.html" class="btn btn-primary">View the Confluence Map</a>
+        <a href="https://github.com/synckdance/gmr-site" class="btn btn-secondary" target="_blank" rel="noopener">GitHub Repository</a>
+        <a href="docs/aei-canonical-first-steps.html" class="btn btn-ghost">AEI Technical Appendix</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Global Movement Research</h3>
+        <p>Tracing how dances move across time and space, and building archives that can think with the bodies they hold.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="maps.html">Confluences</a></li>
+          <li><a href="dances.html">Dances</a></li>
+          <li><a href="compare.html">Compare</a></li>
+          <li><a href="methods.html">Methods</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="docs/aei-canonical-first-steps.html">AEI Appendix</a></li>
+          <li><a href="https://github.com/synckdance/gmr-site" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Global Movement Research © 2024. This is an ongoing research project.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile nav toggle
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+  </script>
+</body>
 </html>

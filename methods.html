@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Methods — Global Movement Research</title>
+  <meta name="description" content="The technical scaffolding of GMR: QTC, SAMs, the Dance Replication Process, and the AEI Activation Framework.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="site-nav" id="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">GMR <span>Global Movement Research</span></a>
+      <button class="nav-toggle" aria-label="Toggle navigation" onclick="toggleNav()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="maps.html">Confluences</a></li>
+        <li><a href="dances.html">Dances</a></li>
+        <li><a href="compare.html">Compare</a></li>
+        <li><a href="methods.html" class="active">Methods</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <section class="section" style="padding-top: calc(80px + var(--space-3xl));">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Technical Framework</p>
+        <h1>Methods</h1>
+      </div>
+      <div class="prose">
+        <p class="lead">
+          GMR is not just a collection of dances. It is an experiment in methodology—an attempt to build tools that can help researchers ask questions about movement that were previously impossible to answer at scale.
+        </p>
+        <p>
+          This page offers a brief introduction to the core technical concepts that underpin the project. For full details, see the linked documentation.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archive Continuum -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Framework</p>
+        <h2>Frozen, Motion, Living, Thinking Archives</h2>
+      </div>
+      <div class="prose" style="margin-bottom: var(--space-2xl);">
+        <p>
+          Most dance archives are <em>frozen</em>. They hold video, notation, and documentation, but they cannot respond to queries, discover relationships, or generate new knowledge. They are storage systems, not thinking systems.
+        </p>
+        <p>
+          GMR proposes a continuum of archive states, each building on the last:
+        </p>
+      </div>
+      <div class="methods-grid">
+        <div class="method-block">
+          <h3>Frozen Archive</h3>
+          <p>Traditional storage. Files sit in repositories, organized by metadata, accessible but inert. The archive cannot answer questions it was not explicitly designed for.</p>
+        </div>
+        <div class="method-block">
+          <h3>Motion Archive</h3>
+          <p>Movement data is extracted from video or motion capture and structured as searchable coordinates. The archive can now be queried spatially: "Show me all dances where the arms rise above shoulder height."</p>
+        </div>
+        <div class="method-block">
+          <h3>Living Archive</h3>
+          <p>Dances are compared, clustered, and connected. Relationships emerge between movements that were never explicitly linked. The archive grows and adapts as new material arrives.</p>
+        </div>
+        <div class="method-block">
+          <h3>Thinking Archive</h3>
+          <p>The archive proposes hypotheses. It flags anomalies, suggests possible diffusion pathways, and supports research that humans alone could not conduct. It thinks with the bodies it holds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dance Replication Process -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Process</p>
+        <h2>Nine-Step Dance Replication Process (DRP)</h2>
+      </div>
+      <div class="prose">
+        <p>
+          DRP is GMR's workflow for moving dances from discovery to archive. It is not a linear pipeline but a cyclical process with ethical checkpoints at every stage.
+        </p>
+        <p>
+          The nine steps are:
+        </p>
+        <ol style="max-width: var(--max-width-prose); margin-bottom: var(--space-xl); padding-left: var(--space-xl);">
+          <li style="margin-bottom: var(--space-md);"><strong>Discovery</strong> — Identifying dances for study, often through community partnership or archival research.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Documentation</strong> — Recording movement through video, motion capture, and ethnographic notes.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Contextualization</strong> — Gathering historical, social, and cultural information about the dance and its practitioners.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Extraction</strong> — Converting video or mocap data into structured movement representations (e.g., skeletal coordinates, QTC sequences).</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Analysis</strong> — Applying computational methods (SAMs, clustering) to discover patterns and relationships.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Interpretation</strong> — Working with domain experts and community members to make sense of computational findings.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Validation</strong> — Testing interpretations against additional evidence and community knowledge.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Archiving</strong> — Storing movement data, metadata, and interpretive notes in formats that support future research.</li>
+          <li style="margin-bottom: var(--space-md);"><strong>Dissemination</strong> — Sharing findings with academic, practitioner, and source communities in appropriate forms.</li>
+        </ol>
+        <p>
+          Ethics is not a separate step but a thread running through all nine. At each stage, we ask: Who benefits? Who might be harmed? What permissions do we have? What obligations do we carry?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QTC and SAMs -->
+  <section class="section section-alt">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Computational Methods</p>
+        <h2>QTC and SAMs</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-2xl);">
+        <div class="prose">
+          <h3>Qualitative Trajectory Calculus (QTC)</h3>
+          <p>
+            QTC is a formalism for describing how objects move in relation to each other. Originally developed for robotics, we adapt it to describe how body parts move relative to each other and to space.
+          </p>
+          <p>
+            Instead of tracking exact coordinates, QTC captures relationships: Are the hands approaching each other or moving apart? Is the torso rotating toward or away from the direction of travel? Is the movement accelerating or decelerating?
+          </p>
+          <p>
+            This relational representation is robust to differences in body size, capture conditions, and performance style. Two dancers of different heights performing the "same" movement will produce similar QTC signatures even if their absolute coordinates differ.
+          </p>
+        </div>
+        <div class="prose">
+          <h3>Sequence Alignment Methods (SAMs)</h3>
+          <p>
+            SAMs are algorithms for comparing sequences—originally developed for DNA analysis, now applied to dance. Given two QTC sequences representing two dances, SAMs can identify regions of similarity and difference.
+          </p>
+          <p>
+            The key insight is that dances, like genes, can be thought of as sequences of discrete elements. Alignment algorithms can detect shared "motifs"—movement phrases that appear in multiple traditions—even when they occur at different speeds or are embedded in different contexts.
+          </p>
+          <p>
+            High similarity scores do not prove historical connection, but they can flag candidates for further investigation. SAMs help us see patterns that would be invisible to the naked eye.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AEI -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label">Activation Framework</p>
+        <h2>AEI: Artificial Embodied Intelligence</h2>
+      </div>
+      <div class="prose">
+        <p>
+          AEI is GMR's framework for thinking about what AI can and cannot do with movement archives. The name is deliberate: we speak of "activation" rather than "generation" because the goal is not to create new dances but to bring archived movements into new forms of analysis and engagement.
+        </p>
+        <p>
+          AEI operates under several constraints:
+        </p>
+        <p>
+          <strong>Non-generative:</strong> AEI does not synthesize novel dances. It works with recorded movement, transforming representations (e.g., from video to skeleton to QTC) and discovering relationships, but it does not invent.
+        </p>
+        <p>
+          <strong>Ethically bounded:</strong> AEI incorporates permission structures. Movement data carries metadata about consent, attribution, and acceptable uses. The system respects these boundaries.
+        </p>
+        <p>
+          <strong>Interpretively humble:</strong> AEI proposes hypotheses; it does not declare truths. Computational findings are starting points for human interpretation, not endpoints.
+        </p>
+        <p>
+          <strong>Community-oriented:</strong> AEI is designed to support source communities, not replace them. Findings are shared back; communities have input into how their dances are represented and used.
+        </p>
+        <p style="margin-top: var(--space-xl);">
+          <a href="docs/aei-canonical-first-steps.html" class="btn btn-secondary">Read the AEI Technical Appendix</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Further Reading -->
+  <section class="section section-dark">
+    <div class="section-inner">
+      <div class="section-header">
+        <p class="section-label" style="color: var(--color-earth-light);">Resources</p>
+        <h2>Further Reading</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-xl);">
+        <div>
+          <h4 style="color: var(--color-paper); margin-bottom: var(--space-md);">Documentation</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: var(--space-sm);">
+              <a href="docs/aei-canonical-first-steps.html" style="color: rgba(255,255,255,0.7);">AEI Canonical First Steps</a>
+            </li>
+            <li style="margin-bottom: var(--space-sm);">
+              <a href="https://github.com/synckdance/gmr-site" target="_blank" rel="noopener" style="color: rgba(255,255,255,0.7);">GitHub Repository</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--color-paper); margin-bottom: var(--space-md);">Background Reading</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: var(--space-sm);">
+              <span style="color: rgba(255,255,255,0.5);">QTC papers — coming soon</span>
+            </li>
+            <li style="margin-bottom: var(--space-sm);">
+              <span style="color: rgba(255,255,255,0.5);">SAM applications in dance — coming soon</span>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h4 style="color: var(--color-paper); margin-bottom: var(--space-md);">Related Projects</h4>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="margin-bottom: var(--space-sm);">
+              <span style="color: rgba(255,255,255,0.5);">StoryMap collection — link pending</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h3>Global Movement Research</h3>
+        <p>Tracing how dances move across time and space, and building archives that can think with the bodies they hold.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="maps.html">Confluences</a></li>
+          <li><a href="dances.html">Dances</a></li>
+          <li><a href="compare.html">Compare</a></li>
+          <li><a href="methods.html">Methods</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="docs/aei-canonical-first-steps.html">AEI Appendix</a></li>
+          <li><a href="https://github.com/synckdance/gmr-site" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Global Movement Research © 2024. This is an ongoing research project.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Navigation
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    function toggleNav() {
+      document.getElementById('navLinks').classList.toggle('open');
+    }
+  </script>
+</body>
+</html>
